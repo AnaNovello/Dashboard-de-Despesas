@@ -1,5 +1,5 @@
 <svg 
-    class="w-24 h-24 lg:w-32 lg:h-32 mx-auto"
+    class="{{ $attributes->get('class') ?? 'w-24 h-24 lg:w-32 lg:h-32 mx-auto' }}"
     id="payment_method_business_payment_money_cash_finance_transfer_credit_card_wallet_transaction_debit"
     viewBox="0 0 32 32"
     xmlns="http://www.w3.org/2000/svg"
