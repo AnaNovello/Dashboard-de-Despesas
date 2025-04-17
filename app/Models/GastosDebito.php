@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class GastosDebito extends Model
 {
+    protected $table = 'gastos_debito';
+
     protected $fillable = ['nome', 'observacao', 'categoria', 'valor', 'id_conta_debito', 'data', 'hora'];
 
     public function contaDebito(): BelongsTo

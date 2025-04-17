@@ -4,7 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PainelDeControleController;
 use App\Http\Controllers\ContaController;
-
+use App\Http\Controllers\ContasDebitoController;
+use App\Http\Controllers\ContasCreditoController;
+use App\Http\Controllers\GanhosController;
+use App\Http\Controllers\GastosDebitoController;
+use App\Http\Controllers\GastosCreditoController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,6 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/conta/excluir', [ContaController::class, 'excluir'])->name('conta.excluir');
 });
 
+Route::post('/conta/cadastrar', [ContasDebitoController::class, 'salvar'])->name('conta.debito.salvar');
 
 
 require __DIR__.'/auth.php';

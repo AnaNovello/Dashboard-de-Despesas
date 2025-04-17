@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ContasCredito extends Model
 {
+    protected $table = 'contas_credito';
+
     protected $fillable = ['nome', 'limite', 'user_id'];
 
     public function user(): BelongsTo
