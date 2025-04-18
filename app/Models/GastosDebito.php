@@ -9,11 +9,11 @@ class GastosDebito extends Model
 {
     protected $table = 'gastos_debito';
 
-    protected $fillable = ['nome', 'observacao', 'categoria', 'valor', 'id_conta_debito', 'data', 'hora'];
+    protected $fillable = ['nome', 'observacao', 'categoria', 'valor', 'conta_debito_id', 'data', 'hora'];
 
     public function contaDebito(): BelongsTo
     {
-        return $this->belongsTo(ContasDebito::class, 'id_conta_debito');
+        return $this->belongsTo(ContasDebito::class, 'conta_debito_id');
     }
 }
 ?>

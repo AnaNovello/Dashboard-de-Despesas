@@ -19,12 +19,19 @@ class ContasDebito extends Model
 
     public function ganhos(): HasMany
     {
-        return $this->hasMany(Ganhos::class, 'id_conta_debito');
+        return $this->hasMany(Ganhos::class, 'conta_debito_id');
     }
 
     public function gastos(): HasMany
     {
-        return $this->hasMany(GastosDebito::class, 'id_conta_debito');
+        return $this->hasMany(GastosDebito::class, 'conta_debito_id');
+    }
+
+    public function getSaldoCalculadoAttribute()
+    {
+        $totalGanhos = $this->ganhos()->sum('valor');
+        $totalGastos = $this->gastos()->sum('valor');
+        return $totalGanhos - $totalGastos;
     }
 }
 ?>

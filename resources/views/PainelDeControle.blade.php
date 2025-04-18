@@ -56,5 +56,49 @@
         </div>
     </div>
 
+    <div class="mt-6">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg border-l-4 border-green-500">
+            <div class="p-4 text-gray-900 dark:text-gray-100">
+                <h3 class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Contas Cadastradas</h3>
+            </div>
+            <div class="p-4 flex justify-left flex-col sm:flex-row gap-16">               
+                @if ($contasDebito->isEmpty())
+                    <p class="text-white-600 dark:text-white-400">Você ainda não cadastrou nenhuma conta.</p>
+                @else
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
+                            <thead>
+                                <tr class="bg-gray-100 dark:bg-gray-700 text-left text-sm font-semibold text-gray-600 dark:text-gray-200 uppercase">
+                                    <th class="py-3 px-4">Nome da Conta</th>
+                                    <th class="py-3 px-4">Data de Criação</th>
+                                    <th class="py-3 px-4">Saldo</th>
+                                    <th class="py-3 px-4">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-gray-700 dark:text-gray-100">
+                                @foreach ($user->contasDebito as $conta)
+                                    <tr class="border-t border-gray-200 dark:border-gray-700">
+                                        <td class="py-3 px-4">{{ $conta->nome }}</td>
+                                        <td class="py-3 px-4">{{ $conta->created_at->format('d/m/Y') }}</td>
+                                        <td class="py-3 px-4">R$ {{ number_format($conta->saldo_calculado, 2, ',', '.') }}</td>
+                                        <td class="py-3 px-4">
+                                            <a href="{{ route('conta.debito.extrato', $conta->id) }}" class="text-blue-600 hover:underline">Detalhes</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+
+
+
+
+<!-- Espaço extra na mesma cor de fundo (cinza) -->
+<div class="h-16 dark:bg-gray-900"></div>
 </x-app-layout>
     

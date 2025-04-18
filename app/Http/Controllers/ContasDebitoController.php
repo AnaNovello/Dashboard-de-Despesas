@@ -43,35 +43,10 @@ class ContasDebitoController extends Controller
         return redirect()->route('PainelDeControle')->with('success', 'Conta de débito cadastrada com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function extrato($id)
     {
-        //
+        $conta = ContasDebito::findOrFail($id);
+        return view('contas.debito.extrato', compact('conta'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

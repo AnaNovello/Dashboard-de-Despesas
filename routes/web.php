@@ -29,6 +29,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::post('/conta/cadastrar', [ContasDebitoController::class, 'salvar'])->name('conta.debito.salvar');
+Route::get('/conta/{id}/extrato', [ContasDebitoController::class, 'extrato'])->name('conta.debito.extrato');
+
 
 
 require __DIR__.'/auth.php';

@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Ganhos extends Model
 {
-    protected $table = 'contas_debito';
+    protected $table = 'ganhos';
 
-    protected $fillable = ['nome', 'data', 'hora', 'valor', 'observacao', 'id_conta_debito'];
+    protected $fillable = ['nome', 'data', 'hora', 'valor', 'observacao', 'conta_debito_id'];
 
     public function contaDebito(): BelongsTo
     {
-        return $this->belongsTo(ContasDebito::class, 'id_conta_debito');
+        return $this->belongsTo(ContasDebito::class, 'conta_debito_id');
     }
 }
 ?>

@@ -10,7 +10,8 @@ class PainelDeControleController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view('PainelDeControle', compact('user'));
+        $contasDebito = $user->contasDebito;
+        return view('PainelDeControle', compact('user', 'contasDebito'));
     }
 }
 ?>
