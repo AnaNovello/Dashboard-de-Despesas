@@ -29,8 +29,7 @@ class ContasDebitoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function salvar(Request $request)
-    {
+    public function salvar(Request $request){
         $request->validate([
             'nome' => 'required|string|max:255',
         ]);
@@ -43,10 +42,24 @@ class ContasDebitoController extends Controller
         return redirect()->route('PainelDeControle')->with('success', 'Conta de débito cadastrada com sucesso!');
     }
 
-    public function extrato($id)
-    {
-        $conta = ContasDebito::findOrFail($id);
-        return view('contas.debito.extrato', compact('conta'));
+    public function extrato($id){
+        $conta = ContasDebito::with('ganhos', 'gastos')->findOrFail($id);
+        
+        $ganhos = $conta->ganhos->map(function($ganho){
+            $ganho->tipo = 'ganho';
+            return $ganho;
+        });
+
+        $gastos = $conta->gastos->map(function($gasto){
+            $gasto->tipo = 'gasto';
+            return $gasto;
+        });
+
+        $extrato = $ganhos->merge($gastos)->sortByDesc(function($item){
+            return $item->data . ' ' . $item->hora;
+        });
+
+        return view('contas.debito.extrato', compact('conta', 'extrato'));
     }
 
 }

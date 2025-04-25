@@ -30,6 +30,11 @@ Route::middleware('auth')->group(function () {
 
 Route::post('/conta/cadastrar', [ContasDebitoController::class, 'salvar'])->name('conta.debito.salvar');
 Route::get('/conta/{id}/extrato', [ContasDebitoController::class, 'extrato'])->name('conta.debito.extrato');
+//Route::get('/conta/{id}/extrato/ganhos', [ContasDebitoController::class, 'ganhosAjax'])->name('conta.debito.ganhos.ajax');
+//Route::get('/conta/{id}/extrato/gastos', [ContasDebitoController::class, 'gastosAjax'])->name('conta.debito.gastos.ajax');
+
+Route::get('/conta/{conta}/gastos', [GastosDebitoController::class, 'listarPorConta'])->name('gastos.conta');
+Route::get('/conta/{conta}/ganhos', [GanhosController::class, 'listarPorConta'])->name('ganhos.conta');
 
 
 

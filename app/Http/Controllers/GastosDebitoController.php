@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\GastosDebito;
+use App\Models\ContasDebito;
+
 
 class GastosDebitoController extends Controller
 {
@@ -18,14 +21,6 @@ class GastosDebitoController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
     {
         //
     }
@@ -61,4 +56,30 @@ class GastosDebitoController extends Controller
     {
         //
     }
+
+    public function salvar(Request $request){
+        
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'observacao' => 'nullable|string',
+            'categoria' => 'required|string',
+            'valor' => 'required|numeric',
+            'data' => 'required|date',
+            'hora' => 'required',
+            'conta_debito_id' => 'required|exists:contas_debito,id',
+        ]);
+
+        GastosDebito::create($request->all());
+
+        return redirect()->back()->with('success', 'Gasto adicionado com sucesso!');
+    }
+
+    public function listarPorConta($contaId){
+        $conta = ContasDebito::findOrFail($contaId);
+        $gastos = $conta->gastos()->orderByDesc('data')->orderByDesc('hora')->get();
+
+        return view('contas.debito.partials.gastos', compact('conta', 'gastos'));
+    }
+
+
 }
