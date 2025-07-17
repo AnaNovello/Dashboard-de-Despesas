@@ -78,7 +78,15 @@ class GastosDebitoController extends Controller
         $conta = ContasDebito::findOrFail($contaId);
         $gastos = $conta->gastos()->orderByDesc('data')->orderByDesc('hora')->get();
 
-        return view('contas.debito.partials.gastos', compact('conta', 'gastos'));
+        $dadosGrafico = $gastos->groupBy('categoria')->map(function($group){
+            return $group->sum('valor');
+        });
+
+        return view('contas.debito.partials.gastos', [
+            'conta' => $conta,
+            'gastos' => $gastos,
+            'dadosGrafico' => $dadosGrafico
+        ]);
     }
 
 

@@ -1,3 +1,6 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ asset('js/dashboard_gastos.js') }}"></script>
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -47,4 +50,38 @@
             </div>
         </div>
     </div>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
+                <h3 class="text-lg font-bold mb-4 text-gray-900 dark:text-gray-100">
+                    Dashboard de {{ $conta->nome }}
+                </h3>
+
+                <div class="mt-6">
+                    <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">Distribuição de Gastos por Categorias</h3>
+                    <h1 class="text-sm font-semibold mb-4 text-gray-900 dark:text-gray-100">
+                        (Categorias Limitadas a 10. Caso queira o gráfico completo, <a href="#" id="baixarGrafico" class="underline text-blue-500 hover:text-blue-700">baixe aqui</a>.)</h1>
+                    <Label class="text-gray-900 dark:text-gray-100">Tipo de Gráfico: </Label>
+                    <select id="graficoTipo" class="border rounded px-2 py-1 text-sm dark:bg-gray-700 dark:text-gray-100">
+                        <option value="bar" selected>Barras</option>
+                        <option value="line">Linha</option>
+                        <option value="doughnut">Rosca</option>
+                    </select>
+                    <div class="max-w-3xl ">
+                        <canvas 
+                            id="graficoGastos" 
+                            width="600"
+                            height="300"
+                            data-labels='@json($dadosGrafico->keys())'
+                            data-valores='@json($dadosGrafico->values())'>
+                        </canvas>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 </x-app-layout>
